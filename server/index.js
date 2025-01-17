@@ -1,28 +1,35 @@
-const express = require('express');
-const cors = require("cors");
-const mongoose = require("mongoose");
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import userRoute from './Routes/userRoute.js';
 
 const app = express();
-require("dotenv").config();
+dotenv.config();
 
 
 // Middleware
 app.use(express.json());
-app.use(cors);
+app.use(cors());
+app.use('/api/users', userRoute);
 
 // Routes
 app.get("/", (req, res) => {
-    res.send("Welcome to MERN Stack Application");
+    res.send("Welcome to MERN Stack Application ");
 });
 
+
+
+// Listen
+
 const uri = process.env.MONGODB_URI
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 
-// Server Port Listening
-app.listen(port, (req,res) => {
-    console.log(`Server is running at port: ${port}`)
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`)
 })
+
 
 // Conencting Database MongoDB
 mongoose.connect(uri).then(() => {
