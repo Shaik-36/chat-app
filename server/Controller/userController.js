@@ -64,5 +64,73 @@ const registerUser = async (req, res) => {
 };
 
 
+const loginUser = async (req, res) => {
+    
+    const {email, password} = req.body
 
-export { registerUser };
+    try {
+        
+        let user = await userModel.findOne({email});
+
+        if(!user) return res.status(400).json("Invalid email or password")
+
+        const isValidPassword = await bcrypt.compare(password, user.password)
+
+        if(!isValidPassword) return res.status(400).json("Invalid email or password")
+
+
+        // Create token
+         const token = createToken(user._id);
+
+        // Send response to client with user details and token 
+        res.status(200).json({
+            _id: user._id, 
+            username: user.username, 
+            email: user.email, token
+        });
+        
+
+    } catch (error) {
+        
+    }
+}
+
+
+const findUser = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+
+        const user = await userModel.findById(userId)
+
+        res.status(200).json(user)
+
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal Server Error"});
+        
+    }
+}
+
+
+const getUser = async (req, res) => {
+
+    try {
+
+        const users = await userModel.find()
+
+        res.status(200).json(users)
+
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal Server Error"});
+        
+    }
+}
+
+
+
+
+export { registerUser, loginUser, findUser, getUser };
