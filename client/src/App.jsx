@@ -1,17 +1,22 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import Chat from "./pages/chat";
+import React, { useState } from "react";
 import NavBar from "./components/NavBar";
+import Chat from "./pages/chat";
+import LoginScreen from "./pages/login";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <div className="flex h-screen bg-gray-900 text-gray-200">
-      <NavBar />
-      <div className="flex-1 flex flex-col">
-        <Routes>
-          <Route path="/" element={<Chat />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </div>
+      <NavBar
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+      />
+      {isAuthenticated ? (
+        <Chat />
+      ) : (
+        <LoginScreen setIsAuthenticated={setIsAuthenticated} />
+      )}
     </div>
   );
 }
