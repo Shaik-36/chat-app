@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import NavBar from "./components/NavBar";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Chat from "./pages/chat";
-import LoginScreen from "./pages/login";
+import NavBar from "./components/NavBar";
+import Login from "./pages/login";
+import Register from "./pages/register";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
     <div className="flex h-screen bg-gray-900 text-gray-200">
-      <NavBar
-        isAuthenticated={isAuthenticated}
-        setIsAuthenticated={setIsAuthenticated}
-      />
-      {isAuthenticated ? (
-        <Chat />
-      ) : (
-        <LoginScreen setIsAuthenticated={setIsAuthenticated} />
-      )}
+      <NavBar />
+      <div className="flex-1 flex flex-col">
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Chat />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
     </div>
   );
 }
