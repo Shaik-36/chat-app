@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
 
     if(!validator.isEmail(email)) return res.status(400).json({message: "Invalid email"});
     
-    if(!validator.isStrongPassword(password)) return res.status(400).json({message: "Password is not strong enough"});
+    // if(!validator.isStrongPassword(password)) return res.status(400).json({message: "Password is not strong enough"});
 
     // Create new user
     user = new userModel({
@@ -91,7 +91,8 @@ const loginUser = async (req, res) => {
         
 
     } catch (error) {
-        
+        console.log(error);
+        return res.status(500).json({message: "Internal Server Error"});
     }
 }
 

@@ -1,9 +1,13 @@
 import React from "react";
-
+import toast, { Toaster } from 'react-hot-toast';
 
 function Chat() {
+
+  toast.success("Login Successfull")
+
   return (
     <div className="flex-1 flex flex-col bg-gray-900">
+      <Toaster />
       <div className="p-4 bg-gray-800 border-b border-gray-700 flex items-center gap-4">
         <div className="w-10 h-10 bg-gray-500 rounded-full"></div>
         <p className="font-semibold text-gray-200">John Doe</p>

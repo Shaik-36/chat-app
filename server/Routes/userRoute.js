@@ -7,7 +7,7 @@ const router = Router();
 // Register User
 router.post("/register", registerUser);
 
-router.get("/login", loginUser)
+router.post("/login", loginUser)
 
 router.get("/find/:userId", findUser)
 
