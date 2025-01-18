@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // Access `registerInfo` and `updateRegisterInfo` from the AuthContext
+  const { registerInfo, updateRegisterInfo } = useAuth();
 
   const handleRegister = () => {
     // Add registration logic
-    console.log("Registered:", email, password);
+
   };
 
   return (
@@ -16,21 +17,51 @@ function Register() {
         <h2 className="text-2xl font-bold text-gray-200 mb-4">Register</h2>
         <form>
           <div className="mb-4">
+            <label className="block text-gray-300">Name</label>
+            <input
+              type="text"
+              value={registerInfo.username || ""}
+              onChange={(e) =>
+                updateRegisterInfo({ ...registerInfo, username: e.target.value })
+              }
+              className="w-full p-3 rounded-md bg-gray-700 text-gray-300"
+              placeholder="Enter your username"
+            />
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-300">Email</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={registerInfo.email || ""}
+              onChange={(e) =>
+                updateRegisterInfo({ ...registerInfo, email: e.target.value })
+              }
               className="w-full p-3 rounded-md bg-gray-700 text-gray-300"
+              placeholder="Enter your email"
             />
           </div>
           <div className="mb-4">
             <label className="block text-gray-300">Password</label>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={registerInfo.password || ""}
+              onChange={(e) =>
+                updateRegisterInfo({ ...registerInfo, password: e.target.value })
+              }
               className="w-full p-3 rounded-md bg-gray-700 text-gray-300"
+              placeholder="Enter your password"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-300">Phone Number (Optional)</label>
+            <input
+              type="tel"
+              value={registerInfo.phone || ""}
+              onChange={(e) =>
+                updateRegisterInfo({ ...registerInfo, phone: e.target.value })
+              }
+              className="w-full p-3 rounded-md bg-gray-700 text-gray-300"
+              placeholder="Enter your phone number"
             />
           </div>
           <button

@@ -1,7 +1,10 @@
 import React from "react";
 
 function NavBar() {
+
+  
   return (
+
     <div className="w-1/4 bg-gray-800 text-gray-100 p-4 border-r border-gray-700 flex flex-col">
       <div className="mb-6">
         <h1 className="text-xl font-bold">Inbox</h1>
@@ -29,6 +32,8 @@ function NavBar() {
         </div>
       </div>
     </div>
+
+
   );
 }
 
