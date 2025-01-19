@@ -1,12 +1,10 @@
-import {express, Router} from "express";
-import {createChat, findUserChat, findChat} from "../Controller/chatController"
+import { Router } from "express";
+import { createChat, findUserChats, findChat } from "../Controller/chatController.js";
 
-const router = Router()
+const chatRouter = Router();  // Changed variable name to 'chatRouter'
 
+chatRouter.post("/", createChat);
+chatRouter.get("/:userId", findUserChats);
+chatRouter.get("/find/:firstId/:secondId", findChat);
 
-router.post("/", createChat);
-router.get("/:userId", findUserChat);
-router.get("/find/:firstId/:secondId", findChat);
-
-
-export default router;
+export default chatRouter;  // Exporting as 'chatRouter'

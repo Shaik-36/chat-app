@@ -1,4 +1,4 @@
-import {chatModel} from "../Models/chatModel"
+import chatModel from "../Models/chatModel.js"
 
 // Create Chat
 const createChat = async (req, res) => {
@@ -67,9 +67,5 @@ const findChat = async(req, res) => {
 
 
 
-export default {
-    createChat,
-    findUserChats,
-    findChat
-}
+export { createChat, findChat, findUserChats };
 
