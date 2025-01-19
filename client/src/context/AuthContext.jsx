@@ -102,9 +102,15 @@ const loginUser = useCallback(async () => {
     return setLoginError(response.message)  
   }
 
+
+
   // Save user data and redirect on successful login
   localStorage.setItem("User", JSON.stringify(response));
-  setUser(response);
+  setTimeout(() => {
+    toast.success("Login Successful");
+  }, 500);
+  setUser(response); // Redirect to dashboard after 1 second
+
 
 
 }, [loginInfo, navigate]);
@@ -112,7 +118,10 @@ const loginUser = useCallback(async () => {
   // Logout User
   const logoutUser = useCallback(() => {
     localStorage.removeItem("User")
-    toast.success('Logged Out Successfully!');
+    
+    setTimeout(() => {
+      toast.success('Logged Out Successfully!');
+    }, 500);
     setUser(null)
   },[loginInfo])
 
