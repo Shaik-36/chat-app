@@ -8,8 +8,6 @@ function Chat() {
   const { userChats, isUserChatsLoading, userChatsError } = useChat();
   const { user } = useAuth();
 
-  console.log("userChats: ", userChats)
-
   if (isUserChatsLoading) {
     return (
       <div className="flex-1 flex items-center justify-center bg-gray-900">

@@ -3,8 +3,6 @@ import { useFetchRecipentUser } from "../../hooks/useFetchRecipent";
 const UserChat = ({ chat, user }) => {
   const { recipientUser } = useFetchRecipentUser(chat, user);
 
-  console.log("Recipent User: ", recipientUser  )
-
   return (
    <>
         <div className="bg-gray-700 p-4 rounded-lg w-full max-w-xl mx-auto  hover:bg-gray-600">
