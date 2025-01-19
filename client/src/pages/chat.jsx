@@ -8,6 +8,8 @@ function Chat() {
   const { userChats, isUserChatsLoading, userChatsError } = useChat();
   const { user } = useAuth();
 
+  console.log("userChats: ", userChats)
+
   if (isUserChatsLoading) {
     return (
       <div className="flex-1 flex items-center justify-center bg-gray-900">
@@ -26,39 +28,35 @@ function Chat() {
   }
 
   return (
-    <>
-      {!userChats ? (
-        <div className="flex-1 flex flex-col bg-gray-900">
-          {/* Welcome Message */}
-          <div className="flex flex-col items-center justify-center h-full text-gray-400">
-            <h2 className="text-xl font-semibold text-gray-200">Welcome!</h2>
-            <p className="text-sm">No chats available.</p>
-            <p className="mt-2 text-sm">Start a new conversation to see your chats here.</p>
+    <div className="flex h-full pt-16">
+      <div className="w-1/4 bg-gray-800 border-r border-gray-700">
+        <div className="p-4 border-b border-gray-700">
+          <h1 className="text-lg font-semibold text-gray-200">Inbox</h1>
+          <div className="mt-2 flex gap-4">
+            <button className="text-sm text-gray-400 hover:text-white">Archived</button>
+            <button className="text-sm text-gray-400 hover:text-white">Unread</button>
           </div>
         </div>
-      ) : (
-        <div className="flex-1 flex flex-col bg-gray-900">
-          <div className="p-4 bg-gray-800 border-b border-gray-700">
-            <p className="font-semibold text-gray-200">Your Chats</p>
-          </div>
-          <div className="flex-1 p-4 overflow-y-auto">
-            {userChats?.map((chat, index) => {
-
-              return (<div
-                key={index}
-                className="p-4 bg-gray-800 rounded-md mb-2 text-gray-300"
-              >
-                <UserChat chat={chat} user={user}/>
-
-              </div>);
-              
-            }
-            )}
-
-          </div>
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {userChats?.map((chat, index) => (
+            <div
+              key={index}
+        
+            >
+              <UserChat chat={chat} user={user} />
+            </div>
+          ))}
         </div>
-      )}
-    </>
+      </div>
+      <div className="flex-1 bg-gray-900 p-6">
+        <div className="p-4 bg-gray-800 border-b border-gray-700">
+          <p className="font-semibold text-gray-200">Your Chats</p>
+        </div>
+        <div className="flex-1 p-4 text-gray-400">
+          <p>Select a chat to start messaging.</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -9,3 +9,73 @@ body {
 li.active {
   background-color: rgba(59, 130, 246, 0.1);
 }
+
+.user-chat-container {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Adjust spacing between elements */
+  padding: 8px;
+  background-color: #1a1a1a; /* Dark background for the chat item */
+  border-radius: 8px;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  background-color: #666; /* Gray background for the avatar */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff; /* White text for initials */
+  font-weight: bold;
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.text-content .name {
+  font-weight: 600;
+  color: #e2e2e2; /* Light gray text for the name */
+  font-size: 14px;
+}
+
+.text-content .text {
+  color: #a6a6a6; /* Dimmed gray for the message text */
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.additional-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px; /* Spacing between date, notifications, and user status */
+}
+
+.additional-info .date {
+  font-size: 10px;
+  color: #a6a6a6; /* Dimmed gray for the date text */
+}
+
+.additional-info .notifications {
+  background-color: #ff5e57; /* Red notification bubble */
+  color: #fff; /* White text for the notification count */
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.additional-info .user-online {
+  width: 8px;
+  height: 8px;
+  background-color: #4caf50; /* Green for online status */
+  border-radius: 50%;
+  border: 1px solid #fff; /* Optional: Add a border to match the UI */
+}
