@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useChat } from "../../context/ChatContext";
+import { useAuth } from "../../context/AuthContext"; // Importing user context to get the current user
 
 const PotentialChats = () => {
-  const { potentialChats } = useChat();
+  const { potentialChats, createChat } = useChat();
+  const { user } = useAuth(); // Assuming `user` contains the current logged-in user's data
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -20,11 +22,18 @@ const PotentialChats = () => {
     }
   };
 
-  const handleUserSelect = (user) => {
-    setSearchQuery(user.username);
+  const handleUserSelect = async (selectedUser) => {
+    setSearchQuery(selectedUser.username);
     setFilteredUsers([]);
     setShowDropdown(false);
-    console.log("Selected User: ", user);
+
+    // Use `createChat` with the logged-in user's ID and the selected user's ID
+    try {
+      await createChat(user._id, selectedUser._id);
+      console.log("Chat created successfully with user:", selectedUser);
+    } catch (error) {
+      console.error("Error creating chat:", error);
+    }
   };
 
   const handleFocus = () => {

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import {baseURL, getRequest, postRequest} from "../utils/services";
 
 
@@ -15,7 +15,7 @@ export const ChatContextProvider = ({children, user}) => {
     const [userChatsError, setUserChatsError] = useState(null)
     const [potentialChats, setPotentialChats] = useState([])
 
-    // User Chats
+    // Get Potential User Chats
     useEffect(() => {
         const getUsers = async () => {
             const response = await getRequest(`${baseURL}/users`)
@@ -42,7 +42,24 @@ export const ChatContextProvider = ({children, user}) => {
         getUsers()
     }, [userChats])
 
+    
+    // Create Chat
+    const createChat = useCallback(async (firstId, secondId) => {
+        const response = await postRequest(`${baseURL}/chats`, JSON.stringify({
+            firstId, 
+            secondId
+        }))
 
+        if(response.error) {
+            return console.log("Error Creating Chat", response)
+        }
+
+        setUserChats((prev) => [...prev, response])
+
+    },[])
+
+
+    // Get Current User
     useEffect(() => {
 
         // Get Current Chats
@@ -70,6 +87,7 @@ export const ChatContextProvider = ({children, user}) => {
 
     }, [user] )
 
+
     // respons with the Chat Contex Provider
     return (
         <ChatContext.Provider
@@ -77,7 +95,8 @@ export const ChatContextProvider = ({children, user}) => {
                 userChats,
                 isUserChatsLoading,
                 userChatsError,
-                potentialChats
+                potentialChats,
+                createChat
             }}
 
         >
