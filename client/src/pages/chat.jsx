@@ -3,6 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useChat } from "../context/ChatContext";
 import UserChat from "../components/chat/UserChat";
 import { useAuth } from "../context/AuthContext";
+import PotentialChats from "../components/chat/PotentialChats";
 
 function Chat() {
   const { userChats, isUserChatsLoading, userChatsError } = useChat();
@@ -27,7 +28,9 @@ function Chat() {
 
   return (
     <div className="flex h-full pt-16">
-      <div className="w-1/4 bg-gray-800 border-r border-gray-700">
+      {/* Sidebar */}
+      <div className="w-1/4 bg-gray-800 border-r border-gray-700 flex flex-col">
+        {/* Inbox Header */}
         <div className="p-4 border-b border-gray-700">
           <h1 className="text-lg font-semibold text-gray-200">Inbox</h1>
           <div className="mt-2 flex gap-4">
@@ -35,22 +38,27 @@ function Chat() {
             <button className="text-sm text-gray-400 hover:text-white">Unread</button>
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {userChats?.map((chat, index) => (
-            <div
-              key={index}
-        
-            >
-              <UserChat chat={chat} user={user} />
-            </div>
-          ))}
+        {/* Potential Chats */}
+        <div className="flex-1 overflow-y-auto hidden-scrollbar">
+          <PotentialChats />
+          <div className="p-4 space-y-4">
+            {userChats?.map((chat, index) => (
+              <div key={index}>
+                <UserChat chat={chat} user={user} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      <div className="flex-1 bg-gray-900 p-6">
+
+      {/* Chat Section */}
+      <div className="flex-1 bg-gray-900 flex flex-col">
+        {/* Chat Header */}
         <div className="p-4 bg-gray-800 border-b border-gray-700">
           <p className="font-semibold text-gray-200">Your Chats</p>
         </div>
-        <div className="flex-1 p-4 text-gray-400">
+        {/* Chat Content */}
+        <div className="flex-1 p-4 text-gray-400 overflow-y-auto hidden-scrollbar">
           <p>Select a chat to start messaging.</p>
         </div>
       </div>

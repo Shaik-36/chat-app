@@ -79,3 +79,14 @@ li.active {
   border-radius: 50%;
   border: 1px solid #fff; /* Optional: Add a border to match the UI */
 }
+
+/* Custom scrollbar styles */
+/* Hide scrollbar but allow scrolling */
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.hidden-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer */
+  scrollbar-width: none; /* Firefox */
+}
