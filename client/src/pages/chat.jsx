@@ -42,6 +42,8 @@ function Chat() {
         {/* Potential Chats */}
         <div className="flex-1 overflow-y-auto hidden-scrollbar">
           <PotentialChats />
+
+          {/* Chat List */}
           <div className="p-4 space-y-4">
             {userChats?.map((chat, index) => (
               <div key={index} onClick={() => updateCurrentChat(chat)} >

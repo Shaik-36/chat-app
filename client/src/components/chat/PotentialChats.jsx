@@ -3,7 +3,7 @@ import { useChat } from "../../context/ChatContext";
 import { useAuth } from "../../context/AuthContext"; // Importing user context to get the current user
 
 const PotentialChats = () => {
-  const { potentialChats, createChat } = useChat();
+  const { potentialChats, createChat, } = useChat();
   const { user } = useAuth(); // Assuming `user` contains the current logged-in user's data
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
