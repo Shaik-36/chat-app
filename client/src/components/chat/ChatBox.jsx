@@ -7,14 +7,14 @@ import InputEmoji from "react-input-emoji";
 
 const ChatBox = () => {
   const { user } = useAuth();
-  const { currentChat, messages, isMessagesLoading, messagesError, sendMessage } = useChat();
+  const { currentChat, messages, isMessagesLoading, messagesError, sendTextMessage } = useChat();
   const { recipientUser } = useFetchRecipentUser(currentChat, user);
-  const [newMessage, setNewMessage] = useState("");
+  const [textMessage, setTextMessage] = useState("");
 
   const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      sendMessage({ text: newMessage, senderId: user.id, chatId: currentChat.id });
-      setNewMessage("");
+    if (textMessage.trim(textMessage)) {
+      sendTextMessage(textMessage, user, currentChat._id, );
+      setTextMessage("");
     }
   };
 
@@ -87,8 +87,8 @@ const ChatBox = () => {
       {/* Send Message Input */}
       <div className="p-4 bg-gray-800 border-t border-gray-700 flex items-center gap-4">
         <InputEmoji
-          value={newMessage}
-          onChange={setNewMessage}
+          value={textMessage}
+          onChange={setTextMessage}
           cleanOnEnter
           onEnter={handleSendMessage}
           placeholder="Type a message..."

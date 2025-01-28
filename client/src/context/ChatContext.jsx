@@ -18,6 +18,9 @@ export const ChatContextProvider = ({children, user}) => {
     const [messages, setMessages] = useState(null)
     const [isMessagesLoading, setIsMessagesLoading] = useState(false)
     const [messagesError, setMessagesError] = useState(null)
+    const [sendTextMessageError, setSendTextMessageError] = useState(null)
+    const [newMessage, setNewMessage] = useState(null)
+
 
     console.log("Messages: ", messages)
 
@@ -95,7 +98,7 @@ export const ChatContextProvider = ({children, user}) => {
     }, [user] )
 
     
-    // Get Selected User Chat Messages 
+    // Get Messages
     useEffect(() => {
 
         // Get Current Chats
@@ -116,6 +119,29 @@ export const ChatContextProvider = ({children, user}) => {
         getMessages()
 
     }, [currentChat] )
+
+
+    // Send Text Message
+    const sendTextMessage = useCallback( async (textMessage, sender, currentChatId) => {
+
+        if (!textMessage) {
+            return console.log("Please enter some text to send..... !")
+        }
+
+        const response = await postRequest(`${baseURL}/messages`, JSON.stringify({
+            chatId: currentChatId,
+            senderId: sender._id,
+            text: textMessage
+        }));
+
+        if(response.error) {
+            return setSendTextMessageError(response)
+        }
+
+        setNewMessage(response)
+        setMessages((prev) => [...prev, response])
+
+    },[])
 
 
 
@@ -139,7 +165,8 @@ export const ChatContextProvider = ({children, user}) => {
                 currentChat,
                 messages,
                 isMessagesLoading,
-                messagesError
+                messagesError,
+                sendTextMessage
             }}
 
         >
