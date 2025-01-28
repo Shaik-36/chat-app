@@ -14,6 +14,13 @@ export const ChatContextProvider = ({children, user}) => {
     const [isUserChatsLoading, setIsUserChatsLoading] = useState(false)
     const [userChatsError, setUserChatsError] = useState(null)
     const [potentialChats, setPotentialChats] = useState([])
+    const [currentChat, setCurrentChat] = useState(null)
+    const [messages, setMessages] = useState(null)
+    const [isMessagesLoading, setIsMessagesLoading] = useState(false)
+    const [messagesError, setMessagesError] = useState(null)
+
+    console.log("Messages: ", messages)
+
 
     // Get Potential User Chats
     useEffect(() => {
@@ -59,7 +66,7 @@ export const ChatContextProvider = ({children, user}) => {
     },[])
 
 
-    // Get Current User
+    // Get User Chats
     useEffect(() => {
 
         // Get Current Chats
@@ -87,6 +94,37 @@ export const ChatContextProvider = ({children, user}) => {
 
     }, [user] )
 
+    
+    // Get Selected User Chat Messages 
+    useEffect(() => {
+
+        // Get Current Chats
+        const getMessages = async() => {
+
+                setIsMessagesLoading(true)
+                setMessagesError(null)
+                    
+                const response = await getRequest(`${baseURL}/messages/${currentChat?._id}`)
+                setIsMessagesLoading(false)
+
+                    if(response.error) {
+                        return setMessagesError(response)
+                    }
+                setMessages(response)           
+            }
+        // Get Current Chats
+        getMessages()
+
+    }, [currentChat] )
+
+
+
+
+    // Current Chat
+    const updateCurrentChat = useCallback((chat) => {
+        setCurrentChat(chat);
+
+    }, [])
 
     // respons with the Chat Contex Provider
     return (
@@ -96,7 +134,12 @@ export const ChatContextProvider = ({children, user}) => {
                 isUserChatsLoading,
                 userChatsError,
                 potentialChats,
-                createChat
+                createChat,
+                updateCurrentChat,
+                currentChat,
+                messages,
+                isMessagesLoading,
+                messagesError
             }}
 
         >

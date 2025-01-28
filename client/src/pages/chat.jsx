@@ -4,9 +4,10 @@ import { useChat } from "../context/ChatContext";
 import UserChat from "../components/chat/UserChat";
 import { useAuth } from "../context/AuthContext";
 import PotentialChats from "../components/chat/PotentialChats";
+import ChatBox from "../components/chat/ChatBox";
 
 function Chat() {
-  const { userChats, isUserChatsLoading, userChatsError } = useChat();
+  const { userChats, isUserChatsLoading, userChatsError, updateCurrentChat } = useChat();
   const { user } = useAuth();
 
   if (isUserChatsLoading) {
@@ -43,7 +44,7 @@ function Chat() {
           <PotentialChats />
           <div className="p-4 space-y-4">
             {userChats?.map((chat, index) => (
-              <div key={index}>
+              <div key={index} onClick={() => updateCurrentChat(chat)} >
                 <UserChat chat={chat} user={user} />
               </div>
             ))}
@@ -52,16 +53,7 @@ function Chat() {
       </div>
 
       {/* Chat Section */}
-      <div className="flex-1 bg-gray-900 flex flex-col">
-        {/* Chat Header */}
-        <div className="p-4 bg-gray-800 border-b border-gray-700">
-          <p className="font-semibold text-gray-200">Your Chats</p>
-        </div>
-        {/* Chat Content */}
-        <div className="flex-1 p-4 text-gray-400 overflow-y-auto hidden-scrollbar">
-          <p>Select a chat to start messaging.</p>
-        </div>
-      </div>
+      <ChatBox />
     </div>
   );
 }
