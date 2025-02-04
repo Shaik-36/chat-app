@@ -21,9 +21,11 @@ export const ChatContextProvider = ({children, user}) => {
     const [newMessage, setNewMessage] = useState(null)
     const [socket, setSocket] = useState(null)
     const [onlineUsers, setOnlineUsers] = useState([])
+    const [notifications, setNotifications] = useState([])
+    const [allUsers, setAllUsers] = useState([])
 
 
-    console.log("Online Users: ", onlineUsers)
+    console.log("Notifications: ", notifications)
 
 
 
@@ -69,18 +71,33 @@ export const ChatContextProvider = ({children, user}) => {
 
 
 
-    // Receive Message
+    // Receive Message and Notification
     useEffect(() => {
         if(socket === null) return;
 
+        // Get Message
         socket.on("getMessage", res => {
             if(currentChat?._id !== res.chatId) return;
 
             setMessages((prev) => [...prev, res])
         })
 
+        // Get Notification
+        socket.on("getNotification", res => {
+            const isChatOpen = currentChat?.members.some(id => id === res.senderId)
+
+            if(isChatOpen) {
+                setNotifications((prev) => [{...res, isRead:true}, ...prev])
+            }
+            else {
+                setNotifications(prev => [res, ...prev])
+            }
+        })
+
+
         return () => {
             socket.off("getMessage")
+            socket.off("getNotification")
         }
         
     }, [socket, currentChat]);
@@ -111,6 +128,7 @@ export const ChatContextProvider = ({children, user}) => {
                 return !isChatCreated
             });
             setPotentialChats(pChats)
+            setAllUsers(response)
         }
         getUsers()
     }, [userChats])
@@ -215,6 +233,8 @@ export const ChatContextProvider = ({children, user}) => {
 
     }, [])
 
+
+
     // respons with the Chat Contex Provider
     return (
         <ChatContext.Provider
@@ -230,7 +250,9 @@ export const ChatContextProvider = ({children, user}) => {
                 isMessagesLoading,
                 messagesError,
                 sendTextMessage,
-                onlineUsers
+                onlineUsers,
+                notifications,
+                allUsers
             }}
 
         >

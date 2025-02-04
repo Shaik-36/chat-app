@@ -1,8 +1,8 @@
 import { useAuth } from "../../context/AuthContext";
 import { useChat } from "../../context/ChatContext";
 import { useFetchRecipentUser } from "../../hooks/useFetchRecipent";
-import { useState } from "react";
-import { format } from "date-fns"; // Ensure date-fns is installed
+import { useRef, useState, useEffect } from "react";
+import moment from "moment";
 import InputEmoji from "react-input-emoji";
 
 const ChatBox = () => {
@@ -10,27 +10,31 @@ const ChatBox = () => {
   const { currentChat, messages, isMessagesLoading, messagesError, sendTextMessage } = useChat();
   const { recipientUser } = useFetchRecipentUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
+  const scroll = useRef();
 
   const handleSendMessage = () => {
-    if (textMessage.trim(textMessage)) {
-      sendTextMessage(textMessage, user, currentChat._id, );
+    if (textMessage.trim()) {
+      sendTextMessage(textMessage, user, currentChat._id);
       setTextMessage("");
     }
   };
 
-  const formatTime = (timestamp) => {
-    return format(new Date(timestamp), "hh:mm a"); // Formats time as "03:45 PM"
+  const formatDateTime = (timestamp) => {
+    return moment(timestamp).format("DD/MM/YYYY hh:mm A"); // Example: "12/02/2024 03:45 PM"
   };
+
+  useEffect(() => {
+    if (scroll.current) {
+      scroll.current.scrollTop = scroll.current.scrollHeight;
+    }
+  }, [messages]);
 
   if (!recipientUser)
     return (
       <div className="flex-1 bg-gray-900 flex flex-col items-center justify-center text-center">
-        {/* Empty State Header */}
         <div className="p-4 bg-gray-800 rounded-t-lg w-full border-b border-gray-700 shadow-lg">
           <p className="font-semibold text-gray-200 text-lg">Your Chats</p>
         </div>
-
-        {/* Empty State Content */}
         <div className="flex-1 flex flex-col items-center justify-center gap-4 p-8">
           <p className="text-gray-400 text-sm">No chat selected. Choose a conversation to start messaging!</p>
         </div>
@@ -39,18 +43,13 @@ const ChatBox = () => {
 
   return (
     <div className="flex-1 bg-gray-900 flex flex-col">
-      {/* Chat Header */}
       <div className="p-4 bg-gray-800 rounded-t-lg border-b border-gray-700 shadow-lg flex items-center gap-4">
         <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-semibold">
           {recipientUser?.username?.[0].toUpperCase()}
         </div>
         <p className="font-semibold text-gray-200 text-lg">{recipientUser?.username}</p>
       </div>
-
-      {/* Chat Content */}
-      <div
-        className="flex-1 p-4 text-gray-300 overflow-y-auto hidden-scrollbar bg-gray-800 shadow-lg"
-      >
+      <div className="flex-1 p-4 text-gray-300 overflow-y-auto hidden-scrollbar bg-gray-800 shadow-lg" ref={scroll}>
         {isMessagesLoading ? (
           <p className="text-center text-gray-400">Loading messages...</p>
         ) : messagesError ? (
@@ -60,20 +59,18 @@ const ChatBox = () => {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex ${
-                  message.senderId === user?._id ? "justify-end" : "justify-start"
-                }`}
+                className={`flex ${message.senderId === user?._id ? "justify-end" : "justify-start"}`}
               >
                 <div
                   className={`rounded-lg px-4 py-2 max-w-sm text-sm shadow-md ${
                     message.senderId === user?._id
-                      ? "bg-blue-600 text-white" // Sent messages (right side)
-                      : "bg-gray-700 text-gray-200" // Received messages (left side)
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-700 text-gray-200"
                   }`}
                 >
                   <p>{message.text}</p>
                   <p className="text-xs text-gray-400 mt-1 text-right">
-                    {formatTime(message?.createdAt)}
+                    {formatDateTime(message?.createdAt)}
                   </p>
                 </div>
               </div>
@@ -83,8 +80,6 @@ const ChatBox = () => {
           <p className="text-center text-gray-400">Start chatting with {recipientUser?.username}!</p>
         )}
       </div>
-
-      {/* Send Message Input */}
       <div className="p-4 bg-gray-800 border-t border-gray-700 flex items-center gap-4">
         <InputEmoji
           value={textMessage}

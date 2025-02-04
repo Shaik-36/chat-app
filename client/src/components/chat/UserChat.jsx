@@ -43,7 +43,7 @@ const UserChat = ({ chat }) => {
             </span>
 
             {/* Notification Bubble */}
-            <div className="w-6 h-6 bg-teal-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+            <div className="w-4 h-4 bg-teal-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
               2
             </div>
 

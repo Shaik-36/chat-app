@@ -35,6 +35,11 @@ io.on("connection", (socket) => {
 
       // Send the message received from recipient to the current user
       io.to(user.socketId).emit("getMessage", message);
+      io.to(user.socketId).emit("getNotification", {
+        senderId: message.senderId,
+        isRead:false,
+        date: new Date(),
+      });
     }
   })
 
