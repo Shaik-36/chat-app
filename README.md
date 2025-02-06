@@ -9,7 +9,6 @@ This project is a real-time chat application with real-time messaging and a real
 *   **Real-time Notifications**: Users receive notifications in real-time when they receive new messages.
 *   **Online Status**: The application displays which users are online and which are offline.
 *   **Chat Creation**: Users can create new chats by clicking on another user.
-*  **Message Preview**: The application shows a preview of the last message sent and the time it was sent.
 
 ## Technologies Used
 
