@@ -24,7 +24,6 @@ This project is a real-time chat application with real-time messaging and a real
 *   **JSON Web Token (JWT)**: Used for creating and verifying tokens.
 *   **validator**: A library for validating email and password.
 *   **React Bootstrap**: A UI library for styling the application.
-*   **Moment.js**: A library for formatting dates and times.
 
 ## Setup
 
