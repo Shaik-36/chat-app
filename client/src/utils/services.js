@@ -1,4 +1,5 @@
-export const baseURL = `${process.env.REACT_APP_BACKEND_URL}/api`;
+// export const baseURL = `${import.meta.env.VITE_BACKEND_URL}/api`;
+export const baseURL = `http://localhost:3000/api`;
 
 
 // Register, Login

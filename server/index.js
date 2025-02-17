@@ -12,7 +12,7 @@ dotenv.config();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: "*" })); 
+app.use(cors());
 app.use('/api/users', userRoute);
 app.use('/api/chats', chatRoute);
 app.use('/api/messages', messageRoute);
