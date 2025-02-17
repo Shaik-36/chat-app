@@ -2,7 +2,7 @@ import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useChat } from "../context/ChatContext";
 import UserChat from "../components/chat/UserChat";
-import { useAuth } from "../context/AuthContext";
+import {useAuth} from "../context/AuthContext.jsx"
 import PotentialChats from "../components/chat/PotentialChats";
 import ChatBox from "../components/chat/ChatBox";
 
