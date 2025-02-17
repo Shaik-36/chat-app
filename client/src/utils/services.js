@@ -1,4 +1,4 @@
-export const baseURL = "http://localhost:3000/api";
+export const baseURL = "https://chat-app-9v4s.onrender.com/api";
 
 
 
