@@ -69,6 +69,7 @@ const loginUser = async (req, res) => {
     const {email, password} = req.body
 
     try {
+
         
         let user = await userModel.findOne({email});
 

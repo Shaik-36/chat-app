@@ -1,5 +1,4 @@
-// export const baseURL = `${import.meta.env.VITE_BACKEND_URL}/api`;
-export const baseURL = `http://localhost:3000/api`;
+export const baseURL = `https://chat-app-9v4s.onrender.com/api`;
 
 
 // Register, Login
@@ -15,6 +14,8 @@ export const postRequest = async (url, body) => {
 
         const data = await response.json();
 
+
+
         if (!response.ok) {
             let message;
         
@@ -26,6 +27,8 @@ export const postRequest = async (url, body) => {
         
             return { error: true, message }; // Return error with message
         }
+
+        console.log(data);
         return data;
 
     } 
