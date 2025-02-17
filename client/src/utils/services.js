@@ -1,5 +1,4 @@
-export const baseURL = "https://chat-app-9v4s.onrender.com/api";
-
+export const baseURL = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 
 // Register, Login
