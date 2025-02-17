@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../context/authContext";
+import {useAuth} from "../context/AuthContext.jsx"
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 
