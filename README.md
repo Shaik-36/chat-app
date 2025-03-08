@@ -1,6 +1,7 @@
 # Realtime Chat Application
 
 This project is a real-time chat application with real-time messaging and a real-time notification system. It is built using React, Node.js, and Socket.io.
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/ac8f3c57-460e-4255-970f-cb04553373ea" />
 
 ## Features
 
