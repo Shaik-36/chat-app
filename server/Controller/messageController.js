@@ -14,7 +14,8 @@ const createMessage = async (req, res) => {
         res.status(200).json(response)
 
     } catch (error) {
-        res.send(500).json(error)
+        // Use the correct method to set the HTTP status code
+        res.status(500).json(error)
     }
 }
 
