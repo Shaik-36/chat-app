@@ -77,7 +77,7 @@ This project is a real-time chat application with real-time messaging and a real
 *   Create a `.env` file in the `server` directory.
 *   Add the following environment variables:
     *   `ADDRESS_URI`: Your MongoDB connection string. Replace the password with the one you set up. Include `/chat-app` at the end to automatically create the database. For example: `mongodb+srv://<username>:<password>@<cluster>.mongodb.net/chat-app`
-    *   `JWT_SECRET_KEY`: A secret key for JWT. For example: `JWT_SECRET_KEY=supersecret123`
+    *   `JWT_SECRET_KEY`: A secret key for JWT. 
 
 ### Running the Application
 
